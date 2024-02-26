@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useState } from 'react';
+
+import LoginPage from './Login/LoginPage';
+import NavBar from './NavBar';
 
 function App() {
+  const [user, setUser] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  const [userType, setUserType] = useState("");
+
+  const handleUpdateUser = ({ username, usertype }) => {
+
+
+    if (username !== "") {
+      Promise.resolve()
+        .then(() => setUserName(username))
+        .then(() => setUserType(usertype))
+        .then(() => setUser(true))
+        .catch(error => console.error("Error:", error));
+    }
+
+  }
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      {(user === false) ? <LoginPage user={user} onUpdateUser={handleUpdateUser} /> : <NavBar username={userName} userType={userType} />}
     </div>
   );
 }
